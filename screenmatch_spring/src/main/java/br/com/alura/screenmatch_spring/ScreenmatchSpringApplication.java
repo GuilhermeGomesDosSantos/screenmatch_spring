@@ -2,11 +2,15 @@ package br.com.alura.screenmatch_spring;
 
 import br.com.alura.screenmatch_spring.model.DadosEpisodio;
 import br.com.alura.screenmatch_spring.model.DadosSerie;
+import br.com.alura.screenmatch_spring.model.DadosTemporada;
 import br.com.alura.screenmatch_spring.service.ConsumoAPI;
 import br.com.alura.screenmatch_spring.service.ConverteDados;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootApplication
 public class ScreenmatchSpringApplication implements CommandLineRunner {
@@ -33,5 +37,14 @@ public class ScreenmatchSpringApplication implements CommandLineRunner {
 		DadosEpisodio dadosEpisodio = conversor.obterDados(json, DadosEpisodio.class);
 		System.out.println(dadosEpisodio);
 
+		List<DadosTemporada> temporadas = new ArrayList<>();
+
+		for (int i = 1; i <= dados.totalTemporadas(); i++) {
+			json = consumoAPI.obterDados("https://www.omdbapi.com/?t=gilmore+girls&season=" + i + "&apikey=31df3067");
+			DadosTemporada dadosTemporada = conversor.obterDados(json, DadosTemporada.class);
+			temporadas.add(dadosTemporada);
+		}
+		System.out.println("Lista de Temporadas:");
+		temporadas.forEach(System.out::println);
 	}
 }
