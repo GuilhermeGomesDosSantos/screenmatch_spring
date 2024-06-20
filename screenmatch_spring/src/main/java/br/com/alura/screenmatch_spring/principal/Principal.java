@@ -6,7 +6,9 @@ import br.com.alura.screenmatch_spring.model.DadosTemporada;
 import br.com.alura.screenmatch_spring.service.ConsumoAPI;
 import br.com.alura.screenmatch_spring.service.ConverteDados;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -18,6 +20,7 @@ public class Principal {
     private ConsumoAPI consumo = new ConsumoAPI();
     private ConverteDados conversor = new ConverteDados();
     public void exibeMenu() {
+/*
         System.out.println("Digite o nome da série");
 
         var nomeSerie = leitura.nextLine();
@@ -42,6 +45,13 @@ public class Principal {
 //        }
 
         temporadas.forEach(t -> t.episodios().forEach(e -> System.out.println(e.titulo())));
-        temporadas.forEach(System.out::println);
+*/
+        List<String> nomes = Arrays.asList("Jacque", "Iasmin", "Paulo", "Rodrigo", "Nico");
+        nomes.stream()
+                .sorted()
+                .limit(3)
+                .filter(n -> n.startsWith("N"))
+                .map(n -> n.toUpperCase())
+                .forEach(System.out::println);
     }
 }
